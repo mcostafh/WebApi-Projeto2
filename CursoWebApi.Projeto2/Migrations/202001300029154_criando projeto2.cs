@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class criarBanco : DbMigration
+    public partial class criandoprojeto2 : DbMigration
     {
         public override void Up()
         {

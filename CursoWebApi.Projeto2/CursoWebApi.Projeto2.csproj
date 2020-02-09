@@ -221,9 +221,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001041841415_criar Banco.cs" />
-    <Compile Include="Migrations\202001041841415_criar Banco.designer.cs">
-      <DependentUpon>202001041841415_criar Banco.cs</DependentUpon>
+    <Compile Include="Migrations\202001300029154_criando projeto2.cs" />
+    <Compile Include="Migrations\202001300029154_criando projeto2.designer.cs">
+      <DependentUpon>202001300029154_criando projeto2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cidade.cs" />
@@ -321,8 +321,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001041841415_criar Banco.resx">
-      <DependentUpon>202001041841415_criar Banco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001300029154_criando projeto2.resx">
+      <DependentUpon>202001300029154_criando projeto2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

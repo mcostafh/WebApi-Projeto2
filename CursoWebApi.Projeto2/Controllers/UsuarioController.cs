@@ -12,6 +12,8 @@ using System.Web.Http.ModelBinding;
 
 namespace CursoWebApi.Projeto2.Controllers
 {
+
+    [Authorize]
     public class UsuarioController : ApiController
     {
         // forma tradicional, poderia fazer injeção de dependência

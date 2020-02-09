@@ -25,10 +25,14 @@ namespace CursoWebApi.Projeto2
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            app.UseCors(CorsOptions.AllowAll);
-            app.UseWebApi(config);
-            ativarGeracaoToken(app);
 
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+
+
+            app.UseCors(CorsOptions.AllowAll);
+  
+            ativarGeracaoToken(app);
+            app.UseWebApi(config);
 
         }
 
@@ -38,10 +42,18 @@ namespace CursoWebApi.Projeto2
             {
                 AllowInsecureHttp = true,
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
-                TokenEndpointPath = new PathString("\token"),
+                TokenEndpointPath = new PathString("/token"),
                 Provider = new ProviderDeTokensDeAcesso()
             };
 
+            app.UseOAuthAuthorizationServer(OpcoesConfigurarToken) ;
+            app.UseOAuthBearerAuthentication( new OAuthBearerAuthenticationOptions());
+
+
+
         }
+
+        
     }
+
 }

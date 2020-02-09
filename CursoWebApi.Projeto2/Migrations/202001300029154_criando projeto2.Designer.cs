@@ -7,13 +7,13 @@ namespace CursoWebApi.Projeto2.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class criarBanco : IMigrationMetadata
+    public sealed partial class criandoprojeto2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(criarBanco));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(criandoprojeto2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001041841415_criar Banco"; }
+            get { return "202001300029154_criando projeto2"; }
         }
         
         string IMigrationMetadata.Source

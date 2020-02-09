@@ -26,9 +26,9 @@ namespace CursoWebApi.Projeto2.Services
             else
             {
                 context.SetError("Acesso invádido", "As credenciais informadas não são válidas");
-                
+                return;
             }
-            return;
+            
         }
     }
 }
