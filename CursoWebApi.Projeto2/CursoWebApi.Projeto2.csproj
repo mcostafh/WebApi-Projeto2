@@ -225,6 +225,10 @@
     <Compile Include="Migrations\202001300029154_criando projeto2.designer.cs">
       <DependentUpon>202001300029154_criando projeto2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002112238386_adicionar campo Role em loginSistena.cs" />
+    <Compile Include="Migrations\202002112238386_adicionar campo Role em loginSistena.designer.cs">
+      <DependentUpon>202002112238386_adicionar campo Role em loginSistena.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -323,6 +327,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202001300029154_criando projeto2.resx">
       <DependentUpon>202001300029154_criando projeto2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002112238386_adicionar campo Role em loginSistena.resx">
+      <DependentUpon>202002112238386_adicionar campo Role em loginSistena.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

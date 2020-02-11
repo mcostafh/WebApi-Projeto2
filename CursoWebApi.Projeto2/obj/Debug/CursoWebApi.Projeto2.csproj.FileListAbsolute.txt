@@ -125,3 +125,4 @@ C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\CursoWebApi.Projeto2\bin\Microso
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\CursoWebApi.Projeto2\bin\System.Web.Http.Owin.xml
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\CursoWebApi.Projeto2\obj\Debug\CursoWebApi.Projeto2.Migrations.criandoprojeto2.resources
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\CursoWebApi.Projeto2\obj\Debug\CursoWebApi.Projeto2.csproj.GenerateResource.cache
+C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\CursoWebApi.Projeto2\obj\Debug\CursoWebApi.Projeto2.Migrations.adicionarcampoRoleemloginSistena.resources

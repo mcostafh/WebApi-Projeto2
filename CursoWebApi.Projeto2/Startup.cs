@@ -32,7 +32,7 @@ namespace CursoWebApi.Projeto2
             app.UseCors(CorsOptions.AllowAll);
   
             ativarGeracaoToken(app);
-            app.UseWebApi(config);
+            app.UseWebApi(config); // deve ser o último
 
         }
 
