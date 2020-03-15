@@ -2,6 +2,7 @@
 using CursoWebApi.Projeto2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,7 +22,7 @@ namespace CursoWebApi.Projeto2.Controllers
 
         public IQueryable<Usuario> getUsuario()
         {
-            return db.usuarios;
+            return db.usuarios.Include( c => c.cidade );
 
         }
 
