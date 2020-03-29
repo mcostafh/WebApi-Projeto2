@@ -16,17 +16,17 @@ namespace TesteWebApi.Controllers
         private async System.Threading.Tasks.Task<IEnumerable<Cidade>> GetCidadesAsync()
         {
             IEnumerable<Cidade> cidades = null;
-
+              
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:65462/Api/cidades");
+                client.BaseAddress = new Uri("http://localhost:56791/Api/Cidades");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
 
                 string token = await AutenticacaoUsuario.getTokenAsync();
                 client.DefaultRequestHeaders.Add("Autorization", "bearer "+token);
 
-                HttpResponseMessage resposta = await client.GetAsync( client.BaseAddress.ToString());
+                HttpResponseMessage resposta = await client.GetAsync();  //  GetAsync( client.BaseAddress.ToString()); // 
 
                 if (resposta.IsSuccessStatusCode)
                 {
@@ -44,13 +44,30 @@ namespace TesteWebApi.Controllers
 
         }
 
+        // GET: Usuario / Create
+        public async System.Threading.Tasks.Task<ActionResult> Create()
+        {
+            cidade = await GetCidadesAsync();
+            if (cidade != null)
+            {
+
+                ViewBag.cod_cidade = new SelectList(
+                    cidade,
+                    "cod_cidade",
+                    "nome_clidade"
+                    );
+            }
+           
+            return View();
+        }
+
         // GET: Usuario
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
            // IEnumerable<Cidade> cidades =  await GetCidadesAsync();
 
             
-            IEnumerable<Usuario> usuarios = null;
+            IEnumerable<Usuario> usuarios = null; 
 
             using (var client = new HttpClient())
             {

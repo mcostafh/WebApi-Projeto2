@@ -13,7 +13,7 @@ using System.Web.Http.ModelBinding;
 namespace CursoWebApi.Projeto2.Controllers
 {
     [Authorize(Roles ="Adm,Secretaria")]
-    public class CidadeController : ApiController
+    public class CidadesController : ApiController
     {
         // forma tradicional, poderia fazer injeção de dependência
         private MeuBanco db = new MeuBanco();

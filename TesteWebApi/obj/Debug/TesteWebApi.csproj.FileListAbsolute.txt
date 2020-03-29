@@ -1,5 +1,3 @@
-C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.csprojAssemblyReference.cache
-C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.csproj.CoreCompileInputs.cache
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\ApplicationInsights.config
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\TesteWebApi.dll.config
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\TesteWebApi.dll
@@ -96,6 +94,8 @@ C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\pt-br\System.Web
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\pt-br\System.Web.WebPages.resources.dll
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\pt-br\System.Web.WebPages.Deployment.resources.dll
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\bin\pt-br\System.Web.WebPages.Razor.resources.dll
+C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.csprojAssemblyReference.cache
+C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.csproj.CoreCompileInputs.cache
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.csproj.CopyComplete
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.dll
 C:\Projetos C#\CursoWebApi\CursoWebApi.Projeto2\TesteWebApi\obj\Debug\TesteWebApi.pdb
