@@ -19,14 +19,15 @@ namespace TesteWebApi.Controllers
               
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:56791/Api/Cidades");
+                client.BaseAddress = new Uri("http://localhost:56791");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
+                
                 string token = await AutenticacaoUsuario.getTokenAsync();
-                client.DefaultRequestHeaders.Add("Autorization", "bearer "+token);
 
-                HttpResponseMessage resposta = await client.GetAsync();  //  GetAsync( client.BaseAddress.ToString()); // 
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                HttpResponseMessage resposta = await client.GetAsync("/Api/Cidades");  //  GetAsync( client.BaseAddress.ToString()); // 
 
                 if (resposta.IsSuccessStatusCode)
                 {
@@ -54,7 +55,7 @@ namespace TesteWebApi.Controllers
                 ViewBag.cod_cidade = new SelectList(
                     cidade,
                     "cod_cidade",
-                    "nome_clidade"
+                    "nome_cidade"
                     );
             }
            
