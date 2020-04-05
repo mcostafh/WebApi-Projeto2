@@ -62,6 +62,49 @@ namespace TesteWebApi.Controllers
             return View();
         }
 
+        // POST: usuario/Create
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> Create( Usuario usuario)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.cod_cidade = new SelectList(
+                        cidade,
+                        "cod_cidade",
+                        "nome_cidade",
+                        usuario.cod_cidade
+                        );
+                    return View(usuario);
+                }
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:56791");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+
+                    string token = await AutenticacaoUsuario.getTokenAsync();
+
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    //HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario");  //  GetAsync( client.BaseAddress.ToString()); // 
+
+                    await client.PostAsJsonAsync("/Api/Usuario", usuario);
+
+                    return RedirectToAction("Index");
+                }
+
+
+            }
+            catch {
+                return View();
+            }
+            
+        }
+
+
         // GET: Usuario
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
