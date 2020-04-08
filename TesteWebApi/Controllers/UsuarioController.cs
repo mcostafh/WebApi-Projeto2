@@ -62,6 +62,45 @@ namespace TesteWebApi.Controllers
             return View();
         }
 
+        // GET: Usuario /Edit/5
+        public async System.Threading.Tasks.Task<ActionResult> Edit( int id)
+        {
+            Usuario usuario = null;
+            cidade = await GetCidadesAsync();
+
+            using (var client = new HttpClient())
+            {
+                string token = await AutenticacaoUsuario.getTokenAsync();
+
+                client.BaseAddress = new Uri("http://localhost:56791");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+
+                HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario/"+id);
+
+                if (resposta.IsSuccessStatusCode)
+                {
+                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                    usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
+
+
+                }
+
+            }
+
+            ViewBag.cod_cidade = new SelectList(
+                        cidade,
+                        "cod_cidade",
+                        "nome_cidade",
+                        usuario.cod_cidade
+                        );
+
+            return View(usuario);
+        }
+
+
         // POST: usuario/Create
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> Create( Usuario usuario)
@@ -108,8 +147,6 @@ namespace TesteWebApi.Controllers
         // GET: Usuario
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
-           // IEnumerable<Cidade> cidades =  await GetCidadesAsync();
-
             
             IEnumerable<Usuario> usuarios = null; 
 
@@ -135,8 +172,124 @@ namespace TesteWebApi.Controllers
 
             }
 
-
             return View(usuarios);
         }
-    }
+
+        // POST: Usuario/Edit/5
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> Edit(int id, Usuario usuario)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.cod_cidade = new SelectList(
+                        cidade,
+                        "cod_cidade",
+                        "nome_cidade",
+                        usuario.cod_cidade
+                        );
+                    return View(usuario);
+                }
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:56791");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+
+                    string token = await AutenticacaoUsuario.getTokenAsync();
+
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    id = usuario.Cod_cliente;
+
+                    await client.PutAsJsonAsync("/Api/Usuario/" + id, usuario);
+
+                    return RedirectToAction("Index");
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+
+
+
+        }
+
+        // Get: Usuario/Delete/5
+        public async System.Threading.Tasks.Task<ActionResult> Delete ( int id)
+        {
+            Usuario usuario=null;
+            cidade = await GetCidadesAsync();
+
+            using (var client = new HttpClient())
+            {
+                string token = await AutenticacaoUsuario.getTokenAsync();
+
+                client.BaseAddress = new Uri("http://localhost:56791");
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+
+                HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario/" + id);
+
+                if (resposta.IsSuccessStatusCode)
+                {
+                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                    usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
+
+
+                }
+
+            }
+            ViewBag.cod_cidade = new SelectList(
+                cidade,
+                "cod_cidade",
+                "nome_cidade",
+                usuario.cod_cidade
+                );
+
+
+            return View(usuario);
+        }
+
+
+        // Post: Usuario/Delete/5
+        [HttpPost]
+        public async System.Threading.Tasks.Task<ActionResult> Delete ( int id, Usuario usuario)
+        {
+            try
+            {
+                
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:56791");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+
+                    string token = await AutenticacaoUsuario.getTokenAsync();
+
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    await client.DeleteAsync("/Api/Usuario/" + id);
+
+                    return RedirectToAction("Index");
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+
+    } 
 }

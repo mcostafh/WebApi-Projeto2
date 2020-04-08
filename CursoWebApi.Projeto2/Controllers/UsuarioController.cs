@@ -45,16 +45,7 @@ namespace CursoWebApi.Projeto2.Controllers
             }
             else
             {
-                db.usuarios.Remove(usuario);
-
-                try
-                {
-                    await db.SaveChangesAsync();
-                }
-                catch
-                {
-                    throw;
-                }
+        
 
                 return Ok(usuario);
             }
@@ -70,6 +61,16 @@ namespace CursoWebApi.Projeto2.Controllers
             }
             else
             {
+                db.usuarios.Remove(usuario);
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch
+                {
+                    throw;
+                }
+
                 return Ok(usuario);
             }
         }
@@ -87,6 +88,7 @@ namespace CursoWebApi.Projeto2.Controllers
             }
 
             db.Entry<Usuario>(usuario).State = System.Data.Entity.EntityState.Modified;
+            
 
             try
             {
