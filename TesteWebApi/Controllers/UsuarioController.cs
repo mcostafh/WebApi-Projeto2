@@ -19,7 +19,7 @@ namespace TesteWebApi.Controllers
         {
             IEnumerable<Cidade> cidades = null;
 
-            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
             HttpResponseMessage resposta = await apiRest.Get("/Api/Cidades");
 
             if (resposta.IsSuccessStatusCode)
@@ -58,7 +58,7 @@ namespace TesteWebApi.Controllers
             Usuario usuario = null;
             cidade = await GetCidadesAsync();
 
-            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
             HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario/"+id);
 
 
@@ -98,7 +98,7 @@ namespace TesteWebApi.Controllers
                     return View(usuario);
                 }
 
-                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
                 HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario" );
                 await apiRest.client.PostAsJsonAsync("/Api/Usuario", usuario);
                 return RedirectToAction("Index");
@@ -117,7 +117,9 @@ namespace TesteWebApi.Controllers
             
             IEnumerable<Usuario> usuarios = null;
 
-            var apiRest = new ApiClientRest("Nel","12", "http://localhost","56791");
+
+            var apiRest = new ApiClientRest(  Session,  "http://localhost","56791");
+
             HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario");
 
             if (resposta.IsSuccessStatusCode)
@@ -148,7 +150,7 @@ namespace TesteWebApi.Controllers
 
                 id = usuario.Cod_cliente;
 
-                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
                 HttpResponseMessage resposta = await apiRest.Put("/Api/Usuario/" + id, usuario);
 
                 return RedirectToAction("Index");
@@ -168,7 +170,7 @@ namespace TesteWebApi.Controllers
             Usuario usuario=null;
             cidade = await GetCidadesAsync();
 
-            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
             HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario/" + id);
             if (resposta.IsSuccessStatusCode)
             {
@@ -194,7 +196,7 @@ namespace TesteWebApi.Controllers
         {
             try
             {
-                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                var apiRest = new ApiClientRest(Session, "http://localhost", "56791");
                 HttpResponseMessage resposta = await apiRest.Delete("/Api/Usuario/" , id);
 
                 return RedirectToAction("Index");

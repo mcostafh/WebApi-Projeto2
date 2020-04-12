@@ -3,14 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TesteWebApi.ViewModels;
 
 namespace TesteWebApi.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+
+        public ActionResult Login()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login( Login login  )
+        {
+            Session["user"] = login.usuario;
+            Session["psw"] = login.senha;
+ 
+
+            return RedirectToAction("../Usuario/Index");
         }
 
         public ActionResult About()
