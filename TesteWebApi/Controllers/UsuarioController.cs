@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using TesteWebApi.Services;
 using TesteWebApi.ViewModels;
 
 namespace TesteWebApi.Controllers
@@ -13,34 +14,23 @@ namespace TesteWebApi.Controllers
     {
         static IEnumerable<Cidade> cidade = null;
 
+
         private async System.Threading.Tasks.Task<IEnumerable<Cidade>> GetCidadesAsync()
         {
             IEnumerable<Cidade> cidades = null;
-              
-            using (var client = new HttpClient())
+
+            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            HttpResponseMessage resposta = await apiRest.Get("/Api/Cidades");
+
+            if (resposta.IsSuccessStatusCode)
             {
-                client.BaseAddress = new Uri("http://localhost:56791");
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-                
-                string token = await AutenticacaoUsuario.getTokenAsync();
-
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                HttpResponseMessage resposta = await client.GetAsync("/Api/Cidades");  //  GetAsync( client.BaseAddress.ToString()); // 
-
-                if (resposta.IsSuccessStatusCode)
-                {
-                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
-                    cidades = JsonConvert.DeserializeObject<Cidade[]>(conteudo);
+                var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                cidades = JsonConvert.DeserializeObject<Cidade[]>(conteudo);
 
 
-                }
-
-
-                return cidades;
             }
 
+            return cidades;
 
 
         }
@@ -68,27 +58,17 @@ namespace TesteWebApi.Controllers
             Usuario usuario = null;
             cidade = await GetCidadesAsync();
 
-            using (var client = new HttpClient())
+            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario/"+id);
+
+
+            if (resposta.IsSuccessStatusCode)
             {
-                string token = await AutenticacaoUsuario.getTokenAsync();
-
-                client.BaseAddress = new Uri("http://localhost:56791");
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
-                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
-
-                HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario/"+id);
-
-                if (resposta.IsSuccessStatusCode)
-                {
-                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
-                    usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
-
-
-                }
+                var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
 
             }
+
 
             ViewBag.cod_cidade = new SelectList(
                         cidade,
@@ -118,23 +98,10 @@ namespace TesteWebApi.Controllers
                     return View(usuario);
                 }
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("http://localhost:56791");
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
-                    string token = await AutenticacaoUsuario.getTokenAsync();
-
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                    //HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario");  //  GetAsync( client.BaseAddress.ToString()); // 
-
-                    await client.PostAsJsonAsync("/Api/Usuario", usuario);
-
-                    return RedirectToAction("Index");
-                }
-
+                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario" );
+                await apiRest.client.PostAsJsonAsync("/Api/Usuario", usuario);
+                return RedirectToAction("Index");
 
             }
             catch {
@@ -148,30 +115,17 @@ namespace TesteWebApi.Controllers
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {
             
-            IEnumerable<Usuario> usuarios = null; 
+            IEnumerable<Usuario> usuarios = null;
 
-            using (var client = new HttpClient())
+            var apiRest = new ApiClientRest("Nel","12", "http://localhost","56791");
+            HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario");
+
+            if (resposta.IsSuccessStatusCode)
             {
-                string token = await AutenticacaoUsuario.getTokenAsync();
-
-                client.BaseAddress = new Uri("http://localhost:56791/Api/Usuario");
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
-                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
-
-                HttpResponseMessage resposta = await client.GetAsync(client.BaseAddress.ToString());
-
-                if (resposta.IsSuccessStatusCode)
-                {
-                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
-                    usuarios = JsonConvert.DeserializeObject<Usuario[]>(conteudo);
-
-
-                }
-
+                var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                usuarios = JsonConvert.DeserializeObject<Usuario[]>(conteudo);
             }
-
+                                
             return View(usuarios);
         }
 
@@ -192,24 +146,12 @@ namespace TesteWebApi.Controllers
                     return View(usuario);
                 }
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("http://localhost:56791");
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
+                id = usuario.Cod_cliente;
 
-                    string token = await AutenticacaoUsuario.getTokenAsync();
+                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                HttpResponseMessage resposta = await apiRest.Put("/Api/Usuario/" + id, usuario);
 
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                    id = usuario.Cod_cliente;
-
-                    await client.PutAsJsonAsync("/Api/Usuario/" + id, usuario);
-
-                    return RedirectToAction("Index");
-                }
-
-
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -226,27 +168,14 @@ namespace TesteWebApi.Controllers
             Usuario usuario=null;
             cidade = await GetCidadesAsync();
 
-            using (var client = new HttpClient())
+            var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+            HttpResponseMessage resposta = await apiRest.Get("/Api/Usuario/" + id);
+            if (resposta.IsSuccessStatusCode)
             {
-                string token = await AutenticacaoUsuario.getTokenAsync();
-
-                client.BaseAddress = new Uri("http://localhost:56791");
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
-                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
-
-                HttpResponseMessage resposta = await client.GetAsync("/Api/Usuario/" + id);
-
-                if (resposta.IsSuccessStatusCode)
-                {
-                    var conteudo = resposta.Content.ReadAsStringAsync().Result;
-                    usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
-
-
-                }
-
+                var conteudo = resposta.Content.ReadAsStringAsync().Result;
+                usuario = JsonConvert.DeserializeObject<Usuario>(conteudo);
             }
+
             ViewBag.cod_cidade = new SelectList(
                 cidade,
                 "cod_cidade",
@@ -265,23 +194,10 @@ namespace TesteWebApi.Controllers
         {
             try
             {
-                
+                var apiRest = new ApiClientRest("Nel", "12", "http://localhost", "56791");
+                HttpResponseMessage resposta = await apiRest.Delete("/Api/Usuario/" , id);
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("http://localhost:56791");
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicarion/json"));
-
-                    string token = await AutenticacaoUsuario.getTokenAsync();
-
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                    await client.DeleteAsync("/Api/Usuario/" + id);
-
-                    return RedirectToAction("Index");
-                }
-
+                return RedirectToAction("Index");
 
             }
             catch
